@@ -1,0 +1,27 @@
+[config]
+
+[templates.neovim]
+input_path = '~/.config/matugen/templates/neovim.vim'
+output_path = '~/.local/share/nvim/lazy/base16-nvim/colors/base16-matugen.vim'
+post_hook = 'pkill -SIGUSR1 nvim'
+
+[templates.test]
+input_path = '~/.config/matugen/templates/test'
+output_path = '~/test.html'
+
+[templates.zellij]
+input_path = '~/.config/matugen/templates/zellij'
+output_path = '~/.config/zellij/themes/matugen.kdl'
+
+[templates.vicinae]
+input_path = '~/.config/matugen/templates/vicinae.toml'
+output_path = '~/.local/share/vicinae/themes/matugen.toml'
+post_hook = 'vicinae theme set matugen'
+
+[templates.zed]
+input_path = '~/.config/matugen/templates/zed-colors.json'
+output_path = '~/.config/zed/themes/matugen.json'
+
+[templates.opencode]
+input_path = '~/.config/matugen/templates/opencode.json'
+output_path = '~/.config/opencode/themes/matugen.json'

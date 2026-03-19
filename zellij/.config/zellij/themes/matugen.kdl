@@ -1,0 +1,15 @@
+themes {
+    matugen {
+        fg "#733d01"
+        bg "#89fa73"
+        black "#18120c"
+        red "#a29c95"
+        green "#ffee9e"
+        yellow "#aeff9e"
+        blue "#ffd19e"
+        magenta "#ffe1c1"
+        cyan "#ffc789"
+        white "#733d01"
+        orange "#ff9e97"
+    }
+}

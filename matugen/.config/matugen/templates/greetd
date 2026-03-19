@@ -1,0 +1,15 @@
+name = "Matugen"
+
+[colors]
+bg_base = "{{colors.on_secondary_fixed.default.hex}}"
+bg_active = "{{colors.primary.default.hex}}"
+primary = "{{colors.tertiary.default.hex}}"
+secondary = "{{colors.inverse_primary.default.hex}}"
+accent = "{{colors.outline.default.hex}}"
+warning = "{{colors.error_container.default.hex}}"
+danger = "{{colors.error_container.default.hex}}"
+fg_primary = "{{colors.primary.default.hex}}"
+fg_secondary = "{{colors.inverse_primary.default.hex}}"
+fg_muted = "{{colors.tertiary_fixed_dim.default.hex}}"
+border_default = "{{colors.outline.default.hex}}"
+border_focus = "{{colors.outline.default.hex}}"
