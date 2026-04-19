@@ -3,7 +3,7 @@
   "currentThemeCategory": "generic",
   "customThemeFile": "",
   "registryThemeVariants": {},
-  "matugenScheme": "scheme-tonal-spot",
+  "matugenScheme": "scheme-rainbow",
   "runUserMatugenTemplates": true,
   "matugenTargetMonitor": "",
   "popupTransparency": 1,
@@ -187,6 +187,17 @@
   "centeringMode": "index",
   "clockDateFormat": "ddd MMM d",
   "lockDateFormat": "ddd MMM d",
+  "greeterRememberLastSession": true,
+  "greeterRememberLastUser": true,
+  "greeterEnableFprint": false,
+  "greeterEnableU2f": false,
+  "greeterWallpaperPath": "",
+  "greeterUse24HourClock": true,
+  "greeterShowSeconds": false,
+  "greeterPadHours12Hour": false,
+  "greeterLockDateFormat": "",
+  "greeterFontFamily": "",
+  "greeterWallpaperFillMode": "",
   "mediaSize": 1,
   "appLauncherViewMode": "list",
   "spotlightModalViewMode": "list",
@@ -228,7 +239,7 @@
       "cursorHideTimeout": 0
     }
   },
-  "launcherLogoMode": "compositor",
+  "launcherLogoMode": "os",
   "launcherLogoCustomPath": "",
   "launcherLogoColorOverride": "primary",
   "launcherLogoColorInvertOnMode": false,
@@ -305,6 +316,7 @@
   "matugenTemplateKcolorscheme": true,
   "matugenTemplateVscode": false,
   "matugenTemplateEmacs": true,
+  "matugenTemplateZed": true,
   "showDock": false,
   "dockAutoHide": true,
   "dockSmartAutoHide": false,
@@ -346,6 +358,8 @@
   "lockAtStartup": false,
   "enableFprint": false,
   "maxFprintTries": 15,
+  "enableU2f": false,
+  "u2fMode": "or",
   "lockScreenActiveMonitor": "all",
   "lockScreenInactiveColor": "#000000",
   "lockScreenNotificationMode": 0,
@@ -424,13 +438,43 @@
       ],
       "showOnLastDisplay": true,
       "leftWidgets": [
-        "launcherButton",
-        "workspaceSwitcher"
+        {
+          "id": "launcherButton",
+          "enabled": true
+        },
+        {
+          "id": "spacer",
+          "enabled": true,
+          "size": 5
+        },
+        {
+          "id": "workspaceSwitcher",
+          "enabled": true
+        }
       ],
       "centerWidgets": [
-        "music",
-        "clock",
-        "weather"
+        {
+          "id": "music",
+          "enabled": true
+        },
+        {
+          "id": "spacer",
+          "enabled": true,
+          "size": 5
+        },
+        {
+          "id": "clock",
+          "enabled": true
+        },
+        {
+          "id": "spacer",
+          "enabled": true,
+          "size": 5
+        },
+        {
+          "id": "weather",
+          "enabled": true
+        }
       ],
       "rightWidgets": [
         {
@@ -438,8 +482,18 @@
           "enabled": true
         },
         {
+          "id": "spacer",
+          "enabled": true,
+          "size": 5
+        },
+        {
           "id": "systemTray",
           "enabled": true
+        },
+        {
+          "id": "spacer",
+          "enabled": true,
+          "size": 5
         },
         {
           "id": "displayManager",
@@ -450,12 +504,17 @@
           "enabled": true
         },
         {
+          "id": "spacer",
+          "enabled": true,
+          "size": 5
+        },
+        {
           "id": "notificationButton",
           "enabled": true
         }
       ],
       "spacing": 8,
-      "innerPadding": 4,
+      "innerPadding": 3,
       "bottomGap": 6,
       "transparency": 0,
       "widgetTransparency": 0.65,
@@ -477,7 +536,8 @@
       "popupGapsManual": 4,
       "widgetOutlineEnabled": true,
       "widgetOutlineColor": "secondary",
-      "widgetOutlineOpacity": 0.57
+      "widgetOutlineOpacity": 0.57,
+      "widgetPadding": 12
     }
   ],
   "desktopClockEnabled": false,

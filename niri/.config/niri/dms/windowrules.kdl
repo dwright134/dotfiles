@@ -66,3 +66,9 @@ window-rule {
     match app-id="^org.freecad.FreeCAD$"
     open-floating true
 }
+
+// @id=wr_1775618669384918649 @name=org.mozilla.Thunderbird
+window-rule {
+    match app-id="^org.mozilla.Thunderbird$"
+    open-floating true
+}
