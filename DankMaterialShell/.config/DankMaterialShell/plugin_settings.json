@@ -1,7 +1,8 @@
 {
   "displayManager": {
-    "enabled": false,
-    "brightness_HDMI-A-2": 50.75883709016394
+    "enabled": true,
+    "brightness_HDMI-A-2": 48.033405172413794,
+    "contrast_HDMI-A-2": 48.198410560344826
   },
   "calculator": {
     "enabled": true,

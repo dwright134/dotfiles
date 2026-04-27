@@ -28,47 +28,49 @@ window-rule {
 
 // @id=dms_rule_5 @name=Rule
 window-rule {
-    opacity 1.00
-}
-
-// @id=dms_rule_6 @name=
-window-rule {
     match app-id="zoom" title="^Picture-in-Picture$"
     open-floating true
 }
 
 // @id=dms_rule_7 @name=
 window-rule {
-    match app-id="org.quickshell$"
-    open-floating true
-}
-
-// @id=wr_1771965224881294741 @name=dev.deedles.Trayscale
-window-rule {
     match app-id="^dev.deedles.Trayscale$"
     open-floating true
 }
 
-// @id=wr_1771967526614466970 @name=Bitwarden
+// @id=wr_1771965224881294741 @name=bitwarden
 window-rule {
     match app-id="^Bitwarden$"
     open-floating true
 }
 
-// @id=wr_1772091854384135510 @name=com.borgbase.Vorta
-window-rule {
-    match app-id="^com.borgbase.Vorta$"
-    open-floating true
-}
-
-// @id=wr_1773183308072071541 @name=org.freecad.FreeCAD
+// @id=wr_1772091854384135510 @name=FreeCAD
 window-rule {
     match app-id="^org.freecad.FreeCAD$"
     open-floating true
 }
 
-// @id=wr_1775618669384918649 @name=org.mozilla.Thunderbird
+// @id=wr_1773183308072071541 @name=Thunderbird
 window-rule {
     match app-id="^org.mozilla.Thunderbird$"
     open-floating true
+}
+
+// @id=dms_rule_11 @name=Opacity on inactive windows
+window-rule {
+    match is-active=false
+    opacity 0.90
+}
+
+// @id=dms_rule_6 @name=org.quickshell$
+window-rule {
+    match app-id="org.quickshell$"
+    opacity 1.00
+    open-floating true
+}
+
+// @id=wr_1777169346535425165 @name=com.mitchellh.ghostty
+window-rule {
+    match app-id="^com.mitchellh.ghostty$"
+    opacity 0.92
 }

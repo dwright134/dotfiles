@@ -37,7 +37,7 @@
   "modalCustomAnimationDuration": 150,
   "enableRippleEffects": true,
   "wallpaperFillMode": "Fill",
-  "blurredWallpaperLayer": false,
+  "blurredWallpaperLayer": true,
   "blurWallpaperOnOverview": true,
   "showLauncherButton": true,
   "showWorkspaceSwitcher": true,
@@ -498,6 +498,11 @@
         {
           "id": "displayManager",
           "enabled": true
+        },
+        {
+          "id": "spacer",
+          "enabled": true,
+          "size": 5
         },
         {
           "id": "controlCenterButton",
