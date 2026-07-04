@@ -1,11 +1,13 @@
 binds {
+    Mod+Shift+D repeat=false hotkey-overlay-title="Dictation: Toggle (Penguin Whisperer)" { spawn "dms" "ipc" "call" "penguinWhisperer" "toggle"; }
+    Mod+Shift+A repeat=false hotkey-overlay-title="Dictation: AI Cleanup (Penguin Whisperer)" { spawn "dms" "ipc" "call" "penguinWhisperer" "toggleAi"; }
     Alt+Ctrl+Insert repeat=false hotkey-overlay-title="Clipboard: Toggle" { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
     Ctrl+Alt+Delete hotkey-overlay-title="Task Manager" { spawn "dms" "ipc" "call" "processlist" "focusOrToggle"; }
     Mod+Alt+L hotkey-overlay-title="Lock Screen" { spawn "dms" "ipc" "call" "lock" "lock"; }
     Mod+Comma hotkey-overlay-title="Settings" { spawn "dms" "ipc" "call" "settings" "focusOrToggle"; }
     Mod+N hotkey-overlay-title="Notification Center" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
     Mod+Shift+N hotkey-overlay-title="Notepad" { spawn "dms" "ipc" "call" "notepad" "toggle"; }
-    Mod+Space hotkey-overlay-title="App Launcher: Toggle" repeat=false { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
+    Mod+Space repeat=false hotkey-overlay-title="App Launcher: Toggle" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
     Mod+Y hotkey-overlay-title="Browse Wallpapers" { spawn "dms" "ipc" "call" "dankdash" "wallpaper"; }
     Super+Alt+N hotkey-overlay-title="Notepad: Toggle" { spawn "dms" "ipc" "call" "notepad" "toggle"; }
     Super+Alt+space hotkey-overlay-title="App Launcher: Toggle" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
@@ -125,4 +127,10 @@ binds {
     Mod+Escape { toggle-keyboard-shortcuts-inhibit; }
     Mod+O repeat=false { toggle-overview; }
     Mod+Shift+Slash { show-hotkey-overlay; }
+}
+
+recent-windows {
+    binds {
+        Super+Tab { next-window; }
+    }
 }

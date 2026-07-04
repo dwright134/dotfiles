@@ -124,7 +124,9 @@ overview {
 // See the binds section below for more spawn examples.
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-spawn-at-startup "lxqt-policykit-agent"
+// Removed lxqt-policykit-agent: DMS's built-in quickshell polkit agent handles
+// authentication prompts instead (rendered as a shell overlay, consistently
+// floating). Two agents racing at startup made prompts float inconsistently.
 environment {
   XDG_CURRENT_DESKTOP "niri"
   QT_QPA_PLATFORMTHEME "gtk3"
