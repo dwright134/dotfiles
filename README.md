@@ -29,6 +29,20 @@ stow -t ~ fish ghostty niri nvim zellij matugen vicinae DankMaterialShell Pictur
 systemctl --user enable --now niri-window-watcher.service
 ```
 
+### Packages
+
+`pacman.packages` (explicit native, 342) and `aur.packages` (explicit AUR, 22)
+list what was installed on purpose; dependencies are left to pacman.
+
+```sh
+scripts/restore-packages -n   # dry run: show what's missing
+scripts/restore-packages      # pacman -S --needed ... then paru -S --needed ...
+scripts/sync-packages         # regenerate the lists from this machine, then commit
+```
+
+The CachyOS repos must already be in `/etc/pacman.conf` (kernel, `cachyos-*`
+settings packages, and the v3 repos). `scripts/` is not a stow package.
+
 ### DMS plugins
 
 `DankMaterialShell/.config/DankMaterialShell/plugins/` is gitignored (except

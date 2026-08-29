@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Reinstall everything listed in pacman.packages / aur.packages on a fresh
+# CachyOS install. Assumes the CachyOS repos are already in /etc/pacman.conf
+# (several listed packages, e.g. linux-cachyos, cachyos-*, come from them).
+#   -n  dry run: print what would be installed
+set -eu
+cd "$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
+dry=0; [ "${1:-}" = "-n" ] && dry=1
+
+# Skip anything already present so the script is safe to re-run.
+missing() { comm -23 "$1" <(pacman -Qq | sort); }
+native=$(missing pacman.packages | tr '\n' ' ')
+aur=$(missing aur.packages | tr '\n' ' ')
+
+if [ "$dry" = 1 ]; then
+    echo "would install (native): $native"
+    echo "would install (aur):    $aur"
+    exit 0
+fi
+[ -n "$native" ] && sudo pacman -S --needed $native
+if [ -n "$aur" ]; then
+    if ! command -v paru >/dev/null 2>&1; then
+        echo "paru not found; bootstrap it first:" >&2
+        echo "  sudo pacman -S --needed base-devel git && git clone https://aur.archlinux.org/paru-bin.git /tmp/paru && (cd /tmp/paru && makepkg -si)" >&2
+        exit 1
+    fi
+    paru -S --needed $aur
+fi

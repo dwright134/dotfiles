@@ -1,0 +1,12 @@
+#!/bin/sh
+# Regenerate the package lists from what is currently installed.
+#   pacman.packages  explicitly installed native packages (deps are NOT listed;
+#                    pacman resolves them on restore)
+#   aur.packages     explicitly installed foreign packages (AUR / manual)
+# Run, review `git diff`, commit.
+set -eu
+cd "$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
+pacman -Qqen | sort > pacman.packages
+pacman -Qqem | sort > aur.packages
+printf 'pacman.packages: %s  aur.packages: %s\n' "$(wc -l < pacman.packages)" "$(wc -l < aur.packages)"
+git --no-pager diff --stat -- pacman.packages aur.packages
