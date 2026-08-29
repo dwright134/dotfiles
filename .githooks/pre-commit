@@ -6,12 +6,23 @@ set -eu
 if command -v gitleaks >/dev/null 2>&1; then
     cfg="$(git rev-parse --show-toplevel)/.gitleaks.toml"
     # --staged: scan the index, not the working tree; config adds repo rules.
-    if ! out=$(gitleaks git --staged --no-banner --redact -v -c "$cfg" 2>&1); then
-        echo "pre-commit: gitleaks found a secret/PII in the staged changes:" >&2
-        printf '%s\n' "$out" | grep -vE '^[0-9]+:[0-9]+[AP]M ' >&2 || true
-        echo "   fix it, or bypass with: git commit --no-verify" >&2
-        exit 1
-    fi
+    # --exit-code 2 separates "leak found" from gitleaks' own errors (exit 1).
+    set +e
+    out=$(gitleaks git --staged --no-banner --no-color --redact -v --exit-code 2 -c "$cfg" 2>&1)
+    rc=$?
+    set -e
+    case $rc in
+        0) ;;
+        2)
+            echo "pre-commit: gitleaks found a secret/PII in the staged changes:" >&2
+            printf '%s\n' "$out" | grep -vE '^[0-9]+:[0-9]+[AP]M ' >&2 || true
+            echo "   fix it, or bypass with: git commit --no-verify" >&2
+            exit 1 ;;
+        *)
+            echo "pre-commit: gitleaks itself failed (exit $rc), not a leak report:" >&2
+            printf '%s\n' "$out" >&2
+            exit 1 ;;
+    esac
 else
     # Fallback: crude grep over added lines.
     if git diff --cached -U0 | grep -E '^\+' | grep -vE '^\+\+\+' \

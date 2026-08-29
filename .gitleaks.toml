@@ -24,6 +24,8 @@ description = "age private key"
 regex = '''AGE-SECRET-KEY-1[0-9A-Z]+'''
 
 [allowlist]
+# Match allowlist regexes against the whole line (default is the captured secret).
+regexTarget = "line"
 paths = [
   '''\.gitleaks\.toml$''',
   '''\.githooks/''',
