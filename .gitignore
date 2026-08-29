@@ -1,0 +1,41 @@
+DankMaterialShell/.config/DankMaterialShell/plugin_settings.json
+pi/.pi/agent/auth.json
+pi/.pi/agent/sessions/
+pi/.pi/agent/.pi-subagents/
+pi/.pi/agent/models-store.json
+pi/.pi/agent/pi-llama-swap.json
+pi/.pi/agent/run-history.jsonl
+
+# --- generated theme outputs (matugen / DMS regenerate these) ---
+DankMaterialShell/.config/DankMaterialShell/zen.css
+DankMaterialShell/.config/DankMaterialShell/.changelog-*
+DankMaterialShell/.config/DankMaterialShell/clsettings.json
+ghostty/.config/ghostty/themes/dankcolors
+zellij/.config/zellij/themes/matugen.kdl
+niri/.config/niri/dms/colors.kdl
+opencode/.config/opencode/themes/matugen.json
+opencode/.config/opencode/package.json
+opencode/.config/opencode/package-lock.json
+opencode/.config/opencode/node_modules/
+zed/.config/zed/themes/matugen.json
+qt/.config/qt5ct/colors/matugen.conf
+qt/.config/qt6ct/colors/matugen.conf
+gtk/.config/gtk-3.0/dank-colors.css
+gtk/.config/gtk-4.0/dank-colors.css
+gtk/.config/gtk-3.0/bookmarks
+
+# --- app-managed state ---
+fish/.config/fish/fish_variables
+
+# --- backups / scratch ---
+*.bak
+*.bak-*
+**/*.backup*
+DankMaterialShell/.config/DankMaterialShell/plugins/*.bak/
+
+# --- secrets (never commit) ---
+git/.config/gh/hosts.yml
+
+# --- pi runtime ---
+pi/.pi/agent/npm/
+pi/.pi/agent/build
