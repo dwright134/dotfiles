@@ -293,6 +293,17 @@ default_layout "compact"
 // 
 // pane_frames false
  
+// Set the pane frame style when pane_frames is enabled (zellij 0.45+).
+// Options:
+//   - titles (default - draw a title above each pane)
+//   - full (draw a full frame around each pane)
+//   - none (equivalent to pane_frames false)
+//
+// 0.45 changed the default from the old full box frame to "titles"; without
+// this, panes lose their border and the pane title lands in the tab bar
+// instead, which reads as tabs renaming themselves.
+pane_frame_style "full"
+ 
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
 // or should each user have their own cursor (false)
