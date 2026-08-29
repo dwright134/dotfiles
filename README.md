@@ -24,8 +24,9 @@ stow package mirroring `$HOME`.
 ```sh
 git clone git@github.com:dwright134/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-git config core.hooksPath .githooks      # enable the secret-scan pre-commit hook
 stow -t ~ fish ghostty niri nvim zellij matugen vicinae DankMaterialShell Pictures
+scripts/bootstrap    # seeds gitignored files niri includes (dms/colors.kdl), fixes the
+                     # display-profile symlink, enables the pre-commit hook
 systemctl --user enable --now niri-window-watcher.service
 ```
 
@@ -68,7 +69,9 @@ into that directory:
 
 `.gitignore` covers three classes of files; keep it that way:
 
-1. **Generated theme output** — anything matugen/DMS rewrites on a wallpaper
+1. **Generated theme output** (`scripts/bootstrap` seeds `niri/dms/colors.kdl`
+   from `scripts/templates/` so `config.kdl`'s `include` isn't dangling before
+   DMS has run) — anything matugen/DMS rewrites on a wallpaper
    change (`zen.css`, `colors.kdl`, `*/themes/matugen.*`, ghostty `dankcolors`,
    nvim `colors/dms.lua`, GTK/Qt `dank-colors`/`matugen.conf`). The templates
    are the source of truth.
