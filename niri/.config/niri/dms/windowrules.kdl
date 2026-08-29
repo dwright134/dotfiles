@@ -129,3 +129,9 @@ window-rule {
     min-height 150
     max-height 150
 }
+
+// @id=wr_1787970280110257280 @name=org.cachyos.hello
+window-rule {
+    match app-id="^org.cachyos.hello$"
+    open-floating true
+}
