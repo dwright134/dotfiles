@@ -40,6 +40,13 @@ scripts/restore-packages      # pacman -S --needed ... then paru -S --needed ...
 scripts/sync-packages         # regenerate the lists from this machine, then commit
 ```
 
+To keep the lists current automatically, install the pacman hook (regenerates
+the files after every transaction; you still review and commit):
+
+```sh
+sudo install -Dm644 scripts/sync-packages.hook /etc/pacman.d/hooks/sync-packages.hook
+```
+
 The CachyOS repos must already be in `/etc/pacman.conf` (kernel, `cachyos-*`
 settings packages, and the v3 repos). `scripts/` is not a stow package.
 

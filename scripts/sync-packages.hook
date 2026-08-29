@@ -1,0 +1,14 @@
+# Regenerate ~/dotfiles/{pacman,aur}.packages after every pacman/paru
+# transaction. Runs as the repo owner; does NOT commit — review and commit.
+# Install: sudo install -Dm644 scripts/sync-packages.hook /etc/pacman.d/hooks/sync-packages.hook
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Syncing dotfiles package lists...
+When = PostTransaction
+Exec = /usr/bin/runuser -u dwright -- /home/dwright/dotfiles/scripts/sync-packages
