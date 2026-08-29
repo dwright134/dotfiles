@@ -3,6 +3,7 @@
 #  - seeds generated files that config.kdl `include`s but git ignores
 #    (DMS overwrites them on first theme apply)
 #  - makes the DMS display-profile symlink relative (DMS writes it absolute)
+#  - provides niri-window-watcher (own repo) under ~/.config/niri/scripts/
 #  - enables the pre-commit hook
 set -euo pipefail
 repo=$(git -C "$(dirname "$0")" rev-parse --show-toplevel)
@@ -22,6 +23,23 @@ if [ -L "$niri_dms/outputs.kdl" ]; then
     esac
     [ -e "$niri_dms/outputs.kdl" ] || echo "WARN: outputs.kdl -> $(readlink "$niri_dms/outputs.kdl") is dangling; pick a display profile in DMS Settings" >&2
 fi
+
+# niri-window-watcher lives in its own repo. Prefer an existing dev checkout
+# (symlink, so edits there are live); otherwise clone it.
+watcher_dst=~/.config/niri/scripts/niri-window-watcher
+watcher_dev=~/Code/DMS/Niri/niri-window-watcher
+watcher_url=https://github.com/dwright134/niri-window-watcher.git
+if [ ! -e "$watcher_dst" ]; then
+    mkdir -p "$(dirname "$watcher_dst")"
+    if [ -d "$watcher_dev/.git" ]; then
+        ln -s "$watcher_dev" "$watcher_dst"
+        echo "niri-window-watcher -> $watcher_dev (dev checkout)"
+    else
+        git clone -q "$watcher_url" "$watcher_dst"
+        echo "cloned niri-window-watcher into $watcher_dst"
+    fi
+fi
+[ -x "$watcher_dst/niri-window-watcher.py" ] || echo "WARN: $watcher_dst/niri-window-watcher.py missing or not executable" >&2
 
 git -C "$repo" config core.hooksPath .githooks
 command -v niri >/dev/null && niri validate -c ~/.config/niri/config.kdl >/dev/null 2>&1 && echo "niri config valid"

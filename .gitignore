@@ -53,3 +53,6 @@ pi/
 # python bytecode from test runs
 __pycache__/
 *.pyc
+
+# niri-window-watcher is its own repo (github.com/dwright134/niri-window-watcher); scripts/bootstrap links/clones it here
+niri/.config/niri/scripts/niri-window-watcher

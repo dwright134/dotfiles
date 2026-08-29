@@ -10,7 +10,7 @@ StartLimitIntervalSec=0
 [Service]
 Type=simple
 Environment=PYTHONDONTWRITEBYTECODE=1
-ExecStart=%h/.config/niri/scripts/niri-window-watcher.py
+ExecStart=%h/.config/niri/scripts/niri-window-watcher/niri-window-watcher.py
 Restart=always
 RestartSec=1
 

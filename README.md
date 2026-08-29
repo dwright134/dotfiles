@@ -12,7 +12,7 @@ stow package mirroring `$HOME`.
 | `fish` | `config.fish` (mise activation etc.) |
 | `ghostty` | terminal config |
 | `matugen` | matugen templates + `config.toml` (user-level templates; DMS drives matugen) |
-| `niri` | compositor config, DMS-managed `dms/*.kdl`, `scripts/niri-window-watcher.py`, and its user systemd unit |
+| `niri` | compositor config, DMS-managed `dms/*.kdl`, and the user systemd unit for [niri-window-watcher](https://github.com/dwright134/niri-window-watcher) (its own repo; `scripts/bootstrap` links or clones it into `~/.config/niri/scripts/`) |
 | `nvim` | LazyVim config; colourscheme is the DMS-generated `dms` scheme via `AvengeMedia/base46` (see `lua/plugins/dms-theme.lua`) |
 | `vicinae` | launcher config |
 | `zellij` | multiplexer config |
@@ -26,7 +26,7 @@ git clone git@github.com:dwright134/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 stow -t ~ fish ghostty niri nvim zellij matugen vicinae DankMaterialShell Pictures
 scripts/bootstrap    # seeds gitignored files niri includes (dms/colors.kdl), fixes the
-                     # display-profile symlink, enables the pre-commit hook
+                     # display-profile symlink, provides niri-window-watcher, enables the hook
 systemctl --user enable --now niri-window-watcher.service
 ```
 
