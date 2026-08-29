@@ -6,7 +6,7 @@ set -eu
 if command -v gitleaks >/dev/null 2>&1; then
     cfg="$(git rev-parse --show-toplevel)/.gitleaks.toml"
     # --staged: scan the index, not the working tree; config adds repo rules.
-    if ! out=$(gitleaks git --staged --no-banner --redact -c "$cfg" 2>&1); then
+    if ! out=$(gitleaks git --staged --no-banner --redact -v -c "$cfg" 2>&1); then
         echo "pre-commit: gitleaks found a secret/PII in the staged changes:" >&2
         printf '%s\n' "$out" | grep -vE '^[0-9]+:[0-9]+[AP]M ' >&2 || true
         echo "   fix it, or bypass with: git commit --no-verify" >&2
