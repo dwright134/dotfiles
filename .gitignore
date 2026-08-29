@@ -41,3 +41,11 @@ pi/.pi/agent/npm/
 pi/.pi/agent/build
 nvim/.config/nvim/colors/dms.lua
 nvim/.config/nvim/lua/lualine/themes/dms.lua
+
+# --- DMS plugins live in their own repos (installed via DMS plugin manager / git clone) ---
+DankMaterialShell/.config/DankMaterialShell/plugins/*
+!DankMaterialShell/.config/DankMaterialShell/plugins/myIP/
+DankMaterialShell/.config/DankMaterialShell/derfla/
+
+# --- pi agent config: not committed for now (2026-08-28) ---
+pi/
