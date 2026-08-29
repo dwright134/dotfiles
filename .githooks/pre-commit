@@ -1,0 +1,29 @@
+#!/bin/sh
+# Block commits that add secrets or personal info. Scans only the staged diff.
+#   bypass once (you know what you're doing): git commit --no-verify
+set -eu
+
+if command -v gitleaks >/dev/null 2>&1; then
+    cfg="$(git rev-parse --show-toplevel)/.gitleaks.toml"
+    # --staged: scan the index, not the working tree; config adds repo rules.
+    if ! out=$(gitleaks git --staged --no-banner --redact -c "$cfg" 2>&1); then
+        echo "pre-commit: gitleaks found a secret/PII in the staged changes:" >&2
+        printf '%s\n' "$out" | grep -vE '^[0-9]+:[0-9]+[AP]M ' >&2 || true
+        echo "   fix it, or bypass with: git commit --no-verify" >&2
+        exit 1
+    fi
+else
+    # Fallback: crude grep over added lines.
+    if git diff --cached -U0 | grep -E '^\+' | grep -vE '^\+\+\+' \
+        | grep -nE 'gmail\.com|AGE-SECRET-KEY|\b172\.(1[6-9]|2[0-9]|3[01])\.[0-9]+\.[0-9]+\b|\b192\.168\.[0-9]+\.[0-9]+\b|"[A-Za-z]*(apiKey|api_key|token|secret|password)[A-Za-z]*" *: *"[^"]{4,}"' >&2; then
+        echo "pre-commit: possible secret/PII in staged changes (gitleaks not installed, grep fallback). Bypass: --no-verify" >&2
+        exit 1
+    fi
+fi
+
+# Never commit these regardless of content.
+blocked='(^|/)(hosts\.yml|auth\.json|keys\.txt|privateKey\.pem|pi-llama-swap\.json|plugin_settings\.json|\.local_variables\.fish)$'
+if git diff --cached --name-only --diff-filter=AM | grep -E "$blocked" >&2; then
+    echo "pre-commit: the file(s) above are on the never-commit list. Bypass: --no-verify" >&2
+    exit 1
+fi

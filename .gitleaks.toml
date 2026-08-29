@@ -1,0 +1,35 @@
+# gitleaks config for this dotfiles repo. Extends the default ruleset with
+# patterns specific to what has leaked (or nearly leaked) here before.
+[extend]
+useDefault = true
+
+[[rules]]
+id = "dotfiles-email"
+description = "Personal email address"
+regex = '''[A-Za-z0-9._%+-]+@(gmail|outlook|proton|protonmail|icloud|yahoo)\.[a-z]{2,}'''
+
+[[rules]]
+id = "dotfiles-private-ip"
+description = "LAN / VPN address"
+regex = '''\b(10\.\d{1,3}|172\.(1[6-9]|2\d|3[01])|192\.168)\.\d{1,3}\.\d{1,3}\b'''
+
+[[rules]]
+id = "dotfiles-json-api-key"
+description = "Non-empty apiKey/token field in JSON (DMS plugin_settings, pi, zed...)"
+regex = '''(?i)"[a-z]*(apikey|api_key|token|secret|password)[a-z]*"\s*:\s*"[^"]{4,}"'''
+
+[[rules]]
+id = "dotfiles-age-key"
+description = "age private key"
+regex = '''AGE-SECRET-KEY-1[0-9A-Z]+'''
+
+[allowlist]
+paths = [
+  '''\.gitleaks\.toml$''',
+  '''\.githooks/''',
+  '''README\.md$''',
+]
+regexes = [
+  '''"apiKey"\s*:\s*"local"''',          # pi local llama endpoint placeholder
+  '''127\.0\.0\.1''',
+]
