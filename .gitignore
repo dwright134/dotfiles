@@ -49,3 +49,7 @@ DankMaterialShell/.config/DankMaterialShell/derfla/
 
 # --- pi agent config: not committed for now (2026-08-28) ---
 pi/
+
+# python bytecode from test runs
+__pycache__/
+*.pyc

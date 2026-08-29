@@ -18,7 +18,6 @@ QtObject {
     property Connections svcConn: Connections {
         target: MyIPService
         function onResultsUpdated() {
-            root.lastFetchTime = Date.now();
             root.refreshResults();
         }
     }
@@ -41,9 +40,13 @@ QtObject {
             });
         }
 
+        // Stamp the time when *we* start a fetch, not on every resultsUpdated,
+        // so unrelated signals can't suppress the first real fetch for 60s.
         var now = Date.now();
-        if (!MyIPService.fetching && now - lastFetchTime > 60000)
+        if (!MyIPService.fetching && now - lastFetchTime > 60000) {
+            lastFetchTime = now;
             MyIPService.fetchAllIPs();
+        }
 
         return buildItems();
     }

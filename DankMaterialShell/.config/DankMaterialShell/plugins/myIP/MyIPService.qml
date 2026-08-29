@@ -21,6 +21,8 @@ Singleton {
 
     signal resultsUpdated
 
+    // Detect whether tailscale exists. Only sets tailscaleAvailable; nothing
+    // here touches the fetch accounting (pendingProcs / resultsUpdated).
     function probe() {
         if (!whichProc.running)
             whichProc.running = true;
@@ -37,16 +39,25 @@ Singleton {
         tailscaleIPv4 = "";
         tailscaleIPv6 = "";
         tailscaleHostname = "";
-        pendingProcs = 3;
+        // One slot per process we actually start; tailscaleStatusProc adds a
+        // slot for tailscaleIPsProc itself if the backend is running.
+        pendingProcs = tailscaleAvailable ? 3 : 2;
         privateProc.running = true;
         publicProc.running = true;
-        tailscaleStatusProc.running = true;
+        if (tailscaleAvailable)
+            tailscaleStatusProc.running = true;
         fetchTimer.restart();
     }
 
     function procFinished() {
-        pendingProcs--;
-        if (pendingProcs <= 0) {
+        if (!fetching) {
+            // Late exit after fetchTimer already gave up: results were stored
+            // by the caller, just let listeners redraw.
+            resultsUpdated();
+            return;
+        }
+        pendingProcs = Math.max(0, pendingProcs - 1);
+        if (pendingProcs === 0) {
             fetching = false;
             fetchTimer.stop();
         }
@@ -83,7 +94,9 @@ Singleton {
 
     Process {
         id: publicProc
-        command: ["sh", "-c", "v4=$(curl -4 -s --max-time 5 ifconfig.me 2>/dev/null || curl -4 -s --max-time 5 api.ipify.org 2>/dev/null); echo \"${v4:-}\"; v6=$(curl -6 -s --max-time 5 ifconfig.me 2>/dev/null || curl -6 -s --max-time 5 api.ipify.org 2>/dev/null); echo \"${v6:-}\""]
+        // v4 and v6 lookups run concurrently; each chain is capped at 2x4s so
+        // a blackholed family can't push the whole fetch past fetchTimer (15s).
+        command: ["sh", "-c", "t=$(mktemp -d) || exit 1; trap 'rm -rf \"$t\"' EXIT; (curl -4 -s --max-time 4 ifconfig.me 2>/dev/null || curl -4 -s --max-time 4 api.ipify.org 2>/dev/null) > \"$t/4\" & (curl -6 -s --max-time 4 ifconfig.me 2>/dev/null || curl -6 -s --max-time 4 api.ipify.org 2>/dev/null) > \"$t/6\" & wait; cat \"$t/4\"; echo; cat \"$t/6\"; echo"]
         stdout: StdioCollector {
             id: publicOut
             waitForEnd: true
@@ -146,8 +159,6 @@ Singleton {
         onExited: exitCode => {
             root.tailscaleProbed = true;
             root.tailscaleAvailable = exitCode === 0;
-            if (root.tailscaleAvailable && !tailscaleStatusProc.running)
-                tailscaleStatusProc.running = true;
         }
     }
 }
