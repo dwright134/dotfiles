@@ -26,21 +26,9 @@ window-rule {
     draw-border-with-background false
 }
 
-// @id=dms_rule_5 @name=Rule
-window-rule {
-    match app-id="zoom" title="^Picture-in-Picture$"
-    open-floating true
-}
-
 // @id=dms_rule_7 @name=
 window-rule {
     match app-id="^dev.deedles.Trayscale$"
-    open-floating true
-}
-
-// @id=wr_1771965224881294741 @name=bitwarden
-window-rule {
-    match app-id="^Bitwarden$"
     open-floating true
 }
 
@@ -59,7 +47,7 @@ window-rule {
 // @id=dms_rule_11 @name=Opacity on inactive windows
 window-rule {
     match is-active=false
-    opacity 0.90
+    opacity 1.00
 }
 
 // @id=dms_rule_6 @name=org.quickshell$
@@ -73,4 +61,71 @@ window-rule {
 window-rule {
     match app-id="^com.mitchellh.ghostty$"
     opacity 0.92
+}
+
+// @id=wr_1783356025418077764 @name=[live] Zen Picture-in-Picture
+window-rule {
+    match app-id="^zen$" title="^Picture-in-Picture$"
+    open-floating true
+    max-width 900
+    max-height 600
+}
+
+// @id=wr_1783356324179718201 @name=[Live] - Zen Extensions
+window-rule {
+    match app-id="^zen$" title="^Extension:"
+    open-floating true
+    default-column-width { fixed 600; }
+    default-window-height { fixed 900; }
+    block-out-from "screencast"
+    geometry-corner-radius 10
+}
+
+// @id=wr_1783528842256755188 @name=org.kde.partitionmanager
+window-rule {
+    match app-id="^org.kde.partitionmanager$"
+    open-floating true
+    default-column-width { fixed 800; }
+    default-window-height { fixed 600; }
+}
+
+// @id=wr_1783553565314058203 @name=com.danklinux.dms
+window-rule {
+    match app-id="^com.danklinux.dms$"
+    open-floating true
+    default-column-width { fixed 940; }
+    default-window-height { fixed 1420; }
+}
+
+// @id=wr_1785032089537752729 @name=org.openrgb.OpenRGB
+window-rule {
+    match app-id="^org.openrgb.OpenRGB$" is-floating=true
+}
+
+// @id=wr_1785034650367553669 @name=nvidia-settings
+window-rule {
+    match app-id="^nvidia-settings$" is-floating=true
+}
+
+// @id=wr_1785629283868293602 @name=Hydrobuddy
+window-rule {
+    match app-id="^Hydrobuddy$"
+    open-floating true
+    default-column-width { fixed 800; }
+    default-window-height { fixed 600; }
+    min-width 800
+    min-height 600
+}
+
+// @id=wr_1787938581949539207 @name=Zoom screenshare annotate_toolbar
+window-rule {
+    match app-id="^zoom$" title="^annotate_toolbar$"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 150; }
+    default-window-height { fixed 150; }
+    min-width 150
+    max-width 150
+    min-height 150
+    max-height 150
 }

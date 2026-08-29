@@ -1,0 +1,16 @@
+{
+    "id": "myip",
+    "name": "My IP",
+    "description": "Launcher plugin to view and copy your private, public, and Tailscale IPs (v4 and v6) along with your Tailscale MagicDNS hostname",
+    "version": "1.0.0",
+    "author": "dwright",
+    "icon": "language",
+    "type": "launcher",
+    "capabilities": ["launcher"],
+    "component": "./MyIPLauncher.qml",
+    "settings": "./MyIPSettings.qml",
+    "trigger": "myip",
+    "requires_dms": ">=1.4.0",
+    "requires": ["curl"],
+    "permissions": ["settings_read", "settings_write", "process"]
+}

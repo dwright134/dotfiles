@@ -1,11 +1,11 @@
 binds {
-    Mod+Shift+D repeat=false hotkey-overlay-title="Dictation: Toggle (Penguin Whisperer)" { spawn "dms" "ipc" "call" "penguinWhisperer" "toggle"; }
-    Mod+Shift+A repeat=false hotkey-overlay-title="Dictation: AI Cleanup (Penguin Whisperer)" { spawn "dms" "ipc" "call" "penguinWhisperer" "toggleAi"; }
     Alt+Ctrl+Insert repeat=false hotkey-overlay-title="Clipboard: Toggle" { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
     Ctrl+Alt+Delete hotkey-overlay-title="Task Manager" { spawn "dms" "ipc" "call" "processlist" "focusOrToggle"; }
     Mod+Alt+L hotkey-overlay-title="Lock Screen" { spawn "dms" "ipc" "call" "lock" "lock"; }
     Mod+Comma hotkey-overlay-title="Settings" { spawn "dms" "ipc" "call" "settings" "focusOrToggle"; }
     Mod+N hotkey-overlay-title="Notification Center" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
+    Mod+Shift+A repeat=false hotkey-overlay-title="Dictation: AI Driven (Whisperer)" { spawn "dms" "ipc" "whisperer" "toggleAi"; }
+    Mod+Shift+D repeat=false hotkey-overlay-title="Dictation: Whisper.cpp Local (Whisperer)" { spawn "dms" "ipc" "whisperer" "toggle"; }
     Mod+Shift+N hotkey-overlay-title="Notepad" { spawn "dms" "ipc" "call" "notepad" "toggle"; }
     Mod+Space repeat=false hotkey-overlay-title="App Launcher: Toggle" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
     Mod+Y hotkey-overlay-title="Browse Wallpapers" { spawn "dms" "ipc" "call" "dankdash" "wallpaper"; }
@@ -69,6 +69,7 @@ binds {
     Mod+Ctrl+Right { focus-monitor-right; }
     Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp { move-column-left; }
+    Mod+Ctrl+T { switch-focus-between-floating-and-tiling; }
     Mod+Ctrl+WheelScrollLeft { move-column-left; }
     Mod+Ctrl+WheelScrollRight { move-column-right; }
     Mod+Down { focus-window-down; }
@@ -127,10 +128,4 @@ binds {
     Mod+Escape { toggle-keyboard-shortcuts-inhibit; }
     Mod+O repeat=false { toggle-overview; }
     Mod+Shift+Slash { show-hotkey-overlay; }
-}
-
-recent-windows {
-    binds {
-        Super+Tab { next-window; }
-    }
 }

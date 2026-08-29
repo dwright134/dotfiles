@@ -170,6 +170,12 @@ animations {
 }
 debug {
     honor-xdg-activation-with-invalid-serial
+
+    // Pin all compositor rendering to the CPU-attached GTX 1070 at PCI 2b:00.0
+    // (the card the monitor is on, DP-4). Keeps the desktop off the second card
+    // so it stays free for llama.cpp. by-path is used because /dev/dri/cardN
+    // numbering is not stable across boots.
+    render-drm-device "/dev/dri/by-path/pci-0000:2b:00.0-render"
 }
 
 // Override to disable super+tab

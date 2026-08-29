@@ -1,25 +1,6 @@
-local function source_matugen()
-  -- Update this with the location of your output file
-  local matugen_path = os.getenv("HOME") .. "/.local/share/nvim/lazy/base16-nvim/colors/base16-matugen.vim" -- dofile doesn't expand $HOME or ~
-
-  local file, err = io.open(matugen_path, "r")
-  -- If the matugen file does not exist (yet or at all), we must initialize a color scheme ourselves
-  if err ~= nil then
-    -- Some placeholder theme, this will be overwritten once matugen kicks in
-    vim.cmd("colorscheme base16-catppuccin-mocha")
-
-    -- Optionally print something to the user
-    vim.print(
-      "A matugen style file was not found, but that's okay! The colorscheme will dynamically change if matugen runs!"
-    )
-  else
-    vim.cmd("colorscheme base16-matugen")
-    io.close(file)
-  end
-end
-
+-- Highlight overrides layered on top of whatever colorscheme is active.
+-- Colorscheme selection lives in plugins/dms-theme.lua (LazyVim opts.colorscheme).
 local function auxiliary_function()
-  source_matugen()
   -- Any other options you wish to set upon matugen reloads can also go here!
   vim.api.nvim_set_hl(0, "Comment", { italic = true })
   -- transparent background
@@ -69,12 +50,22 @@ local function auxiliary_function()
   vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { bg = "none" })
 end
 
--- Register an autocmd to listen for matugen updates
-vim.api.nvim_create_autocmd("Signal", {
-  pattern = "SIGUSR1",
+-- Re-apply overrides whenever a colorscheme loads (initial load, DMS's own
+-- file watcher re-applying colors/dms.lua, or the matugen fallback).
+vim.api.nvim_create_autocmd("ColorScheme", {
   callback = auxiliary_function,
 })
+-- This file is loaded lazily (VeryLazy) by LazyVim, after the colorscheme is
+-- already applied, so run once now too.
+auxiliary_function()
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = auxiliary_function,
+-- Standalone matugen (~/.config/matugen/config.toml) signals SIGUSR1 after
+-- rewriting base16-matugen.vim; only matters on the fallback path.
+vim.api.nvim_create_autocmd("Signal", {
+  pattern = "SIGUSR1",
+  callback = function()
+    if vim.g.colors_name ~= "dms" then
+      require("config.matugen_fallback")()
+    end
+  end,
 })

@@ -39,3 +39,5 @@ git/.config/gh/hosts.yml
 # --- pi runtime ---
 pi/.pi/agent/npm/
 pi/.pi/agent/build
+nvim/.config/nvim/colors/dms.lua
+nvim/.config/nvim/lua/lualine/themes/dms.lua
