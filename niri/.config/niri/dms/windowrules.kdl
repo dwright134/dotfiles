@@ -122,12 +122,16 @@ window-rule {
     match app-id="^zoom$" title="^annotate_toolbar$"
     open-floating true
     open-focused false
+    default-floating-position x=0 y=622 relative-to="top"
     default-column-width { fixed 150; }
     default-window-height { fixed 150; }
     min-width 150
     max-width 150
     min-height 150
     max-height 150
+    border { off; }
+    focus-ring { off; }
+    shadow { off; }
 }
 
 // @id=wr_1787970280110257280 @name=org.cachyos.hello
