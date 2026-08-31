@@ -147,5 +147,13 @@ window-rule {
     max-width 300
     min-height 300
     max-height 300
-    border { off; }
+    border {
+        on
+        width 0
+        active-color "#1a1a1a"
+        inactive-color "#1a1a1a"
+    }
+    draw-border-with-background true
+    focus-ring { off; }
+    shadow { off; }
 }
