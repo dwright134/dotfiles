@@ -135,3 +135,17 @@ window-rule {
     match app-id="^org.cachyos.hello$"
     open-floating true
 }
+
+// @id=wr_1788200538958705673 @name=Zoom meeting bottombar popup
+window-rule {
+    match app-id="^zoom$" title="^meeting bottombar popup$"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 300; }
+    default-window-height { fixed 300; }
+    min-width 300
+    max-width 300
+    min-height 300
+    max-height 300
+    border { off; }
+}
